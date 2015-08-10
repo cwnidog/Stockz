@@ -14,6 +14,9 @@ int main(int argc, const char *argv[])
   {
     NSMutableArray *stocks = [NSMutableArray new];
     NSMutableDictionary *stock;
+    NSString *heading = @"This is the first line of a plist file";
+    
+    [stocks addObject:heading];
     
     stock = [NSMutableDictionary dictionary];
     [stock setObject:@"AAPL" forKey:@"symbol"];
@@ -29,10 +32,19 @@ int main(int argc, const char *argv[])
     
     NSArray *stockList = [NSArray arrayWithContentsOfFile:@"/tmp/stocks.plist"];
     
-    for (NSDictionary *d in stockList)
+    NSString *firstLine = [stockList objectAtIndex:0];
+    NSLog(@"%@", firstLine);
+    
+    NSDictionary *d = [stockList objectAtIndex:1];
+    NSLog(@"I have %@ shares of %@", [d objectForKey:@"shares"], [d objectForKey:@"symbol"]);
+    d = [stockList objectAtIndex:2];
+    NSLog(@"I have %@ shares of %@", [d objectForKey:@"shares"], [d objectForKey:@"symbol"]);
+
+    
+/*    for (NSDictionary *d in stockList)
     {
       NSLog(@"I have %@ shares of %@", [d objectForKey:@"shares"], [d objectForKey:@"symbol"]);
-    }
+    } */
   } // @autoreleasepool
     return 0;
 } // main()
